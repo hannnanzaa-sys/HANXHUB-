@@ -1,4 +1,3 @@
-
 -- ==========================================
 local NamaKamu = "HANXHUB"
 local LinkTikTok = "https://www.tiktok.com/@whoohnbro_"
@@ -14,22 +13,22 @@ local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
 
-local Status = {Survivor = false, Killer = false, Pallets = false, Windows = false, Gens = false, Traps = false, Speed = false, Noclip = false, FOV = false}
-local Colors = {Survivor = Color3.fromRGB(0, 255, 0), Killer = Color3.fromRGB(255, 0, 0), Pallets = Color3.fromRGB(0, 255, 255), Windows = Color3.fromRGB(255, 255, 0), Gens = Color3.fromRGB(150, 0, 255), Traps = Color3.fromRGB(255, 105, 180)}
-local ColorList = {Color3.fromRGB(0, 255, 0), Color3.fromRGB(255, 0, 0), Color3.fromRGB(0, 170, 255), Color3.fromRGB(255, 255, 0), Color3.fromRGB(150, 0, 255), Color3.fromRGB(255, 255, 255), Color3.fromRGB(0, 255, 255), Color3.fromRGB(255, 105, 180)}
+local Status = {Survivor = false, Killer = false, Pallets = false, Windows = false, Gens = false, Traps = false, Pumpkins = false, Speed = false, Noclip = false, FOV = false}
+local Colors = {Survivor = Color3.fromRGB(0, 255, 0), Killer = Color3.fromRGB(255, 0, 0), Pallets = Color3.fromRGB(0, 255, 255), Windows = Color3.fromRGB(255, 255, 0), Gens = Color3.fromRGB(150, 0, 255), Traps = Color3.fromRGB(255, 105, 180), Pumpkins = Color3.fromRGB(255, 140, 0)} -- Orange
+local ColorList = {Color3.fromRGB(0, 255, 0), Color3.fromRGB(255, 0, 0), Color3.fromRGB(0, 170, 255), Color3.fromRGB(255, 255, 0), Color3.fromRGB(150, 0, 255), Color3.fromRGB(255, 255, 255), Color3.fromRGB(0, 255, 255), Color3.fromRGB(255, 105, 180), Color3.fromRGB(255, 140, 0)}
 local ESP_Objects = {}
 
 -- ==========================================
--- 1. ANIMASI LOADING
+-- 1. ANIMASI LOADING (3 DETIK)
 -- ==========================================
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "HanxHubV37"
+ScreenGui.Name = "HanxHubV40"
 ScreenGui.ResetOnSpawn = false
 ScreenGui.Parent = CoreGui
 
 local LoadFrame = Instance.new("Frame")
-LoadFrame.Size = UDim2.new(0, 300, 0, 120)
-LoadFrame.Position = UDim2.new(0.5, -150, 0.5, -60)
+LoadFrame.Size = UDim2.new(0, 320, 0, 130)
+LoadFrame.Position = UDim2.new(0.5, -160, 0.5, -65)
 LoadFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 20)
 LoadFrame.BorderSizePixel = 0
 LoadFrame.Parent = ScreenGui
@@ -37,125 +36,118 @@ Instance.new("UICorner", LoadFrame).CornerRadius = UDim.new(0, 10)
 
 local LoadGrad = Instance.new("UIGradient")
 LoadGrad.Color = ColorSequence.new({
-    ColorSequenceKeypoint.new(0, Color3.fromRGB(150, 50, 200)),
-    ColorSequenceKeypoint.new(1, Color3.fromRGB(50, 150, 255))
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 100, 0)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(150, 50, 200))
 })
 LoadGrad.Parent = LoadFrame
 
 local TitleGlow = Instance.new("TextLabel")
 TitleGlow.Size = UDim2.new(1, 0, 0, 40)
-TitleGlow.Position = UDim2.new(0, 0, 0, 20)
+TitleGlow.Position = UDim2.new(0, 0, 0, 25)
 TitleGlow.BackgroundTransparency = 1
-TitleGlow.Text = NamaKamu .. " | LOADING"
+TitleGlow.Text = NamaKamu .. " | HALLOWEEN"
 TitleGlow.Font = Enum.Font.GothamBlack
-TitleGlow.TextSize = 20
+TitleGlow.TextSize = 22
 TitleGlow.TextColor3 = Color3.fromRGB(255, 255, 255)
 TitleGlow.Parent = LoadFrame
 
 local GlowLine = Instance.new("Frame")
 GlowLine.Size = UDim2.new(0, 0, 0, 3)
-GlowLine.Position = UDim2.new(0.5, 0, 0.5, 20)
-GlowLine.BackgroundColor3 = Color3.fromRGB(0, 255, 255)
+GlowLine.Position = UDim2.new(0.5, 0, 0.5, 25)
+GlowLine.BackgroundColor3 = Color3.fromRGB(255, 140, 0)
 GlowLine.BorderSizePixel = 0
 GlowLine.Parent = LoadFrame
 
 local GlowUIStroke = Instance.new("UIStroke")
-GlowUIStroke.Color = Color3.fromRGB(0, 255, 255)
+GlowUIStroke.Color = Color3.fromRGB(255, 140, 0)
 GlowUIStroke.Thickness = 4
 GlowUIStroke.Transparency = 0.5
 GlowUIStroke.Parent = GlowLine
 
-TweenService:Create(GlowLine, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size = UDim2.new(1, 0, 0, 3), Position = UDim2.new(0, 0, 0.5, 20)}):Play()
-task.wait(1.2)
-TweenService:Create(GlowLine, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {BackgroundTransparency = 1}):Play()
-TweenService:Create(GlowUIStroke, TweenInfo.new(0.3), {Transparency = 1}):Play()
-task.wait(0.3)
+-- Animasi Loading 3 Detik
+TweenService:Create(GlowLine, TweenInfo.new(2.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size = UDim2.new(1, 0, 0, 3), Position = UDim2.new(0, 0, 0.5, 25)}):Play()
+task.wait(2.5)
+TweenService:Create(GlowLine, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {BackgroundTransparency = 1}):Play()
+TweenService:Create(GlowUIStroke, TweenInfo.new(0.5), {Transparency = 1}):Play()
+task.wait(0.5)
 LoadFrame:Destroy()
 
 -- ==========================================
--- 2. TOMBOL TOGGLE (DESAIN LOGO MODERN)
+-- 2. TOMBOL TOGGLE (DESAIN MEWAH)
 -- ==========================================
 local ToggleBtn = Instance.new("TextButton")
-ToggleBtn.Size = UDim2.new(0, 50, 0, 50) -- Ukuran kotak logo
+ToggleBtn.Size = UDim2.new(0, 55, 0, 55)
 ToggleBtn.Position = UDim2.new(0, 20, 0, 100)
 ToggleBtn.BackgroundColor3 = Color3.fromRGB(25, 25, 30) 
-ToggleBtn.Text = "H" -- Huruf depan HANX
-ToggleBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-ToggleBtn.Font = Enum.Font.GothamBlack
-ToggleBtn.TextSize = 24
-ToggleBtn.Rotation = 45 -- Bikin kotaknya miring (belah ketupat)
+ToggleBtn.Text = ""
 ToggleBtn.Parent = ScreenGui
 
 local ToggleCorner = Instance.new("UICorner")
-ToggleCorner.CornerRadius = UDim.new(0, 10)
+ToggleCorner.CornerRadius = UDim.new(0, 12)
 ToggleCorner.Parent = ToggleBtn
 
--- Garis tepi warna Gradasi (Ungu ke Biru)
 local ToggleStroke = Instance.new("UIStroke")
-ToggleStroke.Color = Color3.fromRGB(150, 50, 200) 
-ToggleStroke.Thickness = 2
+ToggleStroke.Color = Color3.fromRGB(255, 140, 0) 
+ToggleStroke.Thickness = 2.5
 ToggleStroke.Parent = ToggleBtn
 
--- Gradasi di dalam tombol
 local ToggleGrad = Instance.new("UIGradient")
 ToggleGrad.Color = ColorSequence.new({
-    ColorSequenceKeypoint.new(0, Color3.fromRGB(180, 100, 255)),
-    ColorSequenceKeypoint.new(1, Color3.fromRGB(50, 150, 255))
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 140, 0)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(150, 50, 200))
 })
 ToggleGrad.Rotation = 90
 ToggleGrad.Parent = ToggleBtn
 
--- Balikin teksnya biar tegak (karena kotaknya diputar 45 derajat)
 local InnerFix = Instance.new("TextLabel")
 InnerFix.Size = UDim2.new(1, 0, 1, 0)
 InnerFix.BackgroundTransparency = 1
 InnerFix.Text = "H"
 InnerFix.TextColor3 = Color3.fromRGB(255, 255, 255)
 InnerFix.Font = Enum.Font.GothamBlack
-InnerFix.TextSize = 24
-InnerFix.Rotation = -45 -- Putar balik teksnya
+InnerFix.TextSize = 28
+InnerFix.Rotation = -45
 InnerFix.Parent = ToggleBtn
-ToggleBtn.Text = "" -- Sembunyiin teks asli
 
 -- ==========================================
--- 3. MENU UTAMA
+-- 3. MENU UTAMA (DESAIN RAPI)
 -- ==========================================
 local MainFrame = Instance.new("Frame")
-MainFrame.Size = UDim2.new(0, 520, 0, 310)
-MainFrame.Position = UDim2.new(0.5, -260, 0.5, -155)
+MainFrame.Size = UDim2.new(0, 560, 0, 340)
+MainFrame.Position = UDim2.new(0.5, -280, 0.5, -170)
 MainFrame.BackgroundColor3 = Color3.fromRGB(18, 18, 25)
 MainFrame.BorderSizePixel = 0
 MainFrame.Active = true
 MainFrame.Draggable = true
 MainFrame.Visible = false
 MainFrame.Parent = ScreenGui
-Instance.new("UICorner", MainFrame).CornerRadius = UDim.new(0, 10)
+Instance.new("UICorner", MainFrame).CornerRadius = UDim.new(0, 12)
 
 local TopLine = Instance.new("Frame")
 TopLine.Size = UDim2.new(1, 0, 0, 4)
-TopLine.BackgroundColor3 = Color3.fromRGB(180, 100, 255)
+TopLine.BackgroundColor3 = Color3.fromRGB(255, 140, 0)
 TopLine.BorderSizePixel = 0
 TopLine.Parent = MainFrame
-Instance.new("UICorner", TopLine).CornerRadius = UDim.new(0, 10)
+Instance.new("UICorner", TopLine).CornerRadius = UDim.new(0, 12)
 
 local Sidebar = Instance.new("Frame")
-Sidebar.Size = UDim2.new(0, 130, 1, 0)
+Sidebar.Size = UDim2.new(0, 150, 1, 0)
 Sidebar.BackgroundColor3 = Color3.fromRGB(22, 22, 30)
 Sidebar.BorderSizePixel = 0
 Sidebar.Parent = MainFrame
-Instance.new("UICorner", Sidebar).CornerRadius = UDim.new(0, 10)
+Instance.new("UICorner", Sidebar).CornerRadius = UDim.new(0, 12)
 
--- Judul Menu dalam Sidebar (Modern Gradient Box)
+-- Logo HANXHUB
 local LogoFrame = Instance.new("Frame")
-LogoFrame.Size = UDim2.new(1, -10, 0, 45)
+LogoFrame.Size = UDim2.new(1, -10, 0, 55)
 LogoFrame.Position = UDim2.new(0, 5, 0, 5)
 LogoFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
 LogoFrame.Parent = Sidebar
-Instance.new("UICorner", LogoFrame).CornerRadius = UDim.new(0, 6)
+Instance.new("UICorner", LogoFrame).CornerRadius = UDim.new(0, 8)
 Instance.new("UIStroke", LogoFrame).Color = Color3.fromRGB(100, 100, 120)
 
 local LogoGrad = Instance.new("UIGradient")
-LogoGrad.Color = ColorSequence.new({ColorSequenceKeypoint.new(0, Color3.fromRGB(180, 100, 255)), ColorSequenceKeypoint.new(1, Color3.fromRGB(50, 150, 255))})
+LogoGrad.Color = ColorSequence.new({ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 140, 0)), ColorSequenceKeypoint.new(1, Color3.fromRGB(150, 50, 200))})
 LogoGrad.Parent = LogoFrame
 
 local Title = Instance.new("TextLabel")
@@ -163,9 +155,20 @@ Title.Size = UDim2.new(1, 0, 1, 0)
 Title.BackgroundTransparency = 1
 Title.Text = NamaKamu
 Title.Font = Enum.Font.GothamBlack
-Title.TextSize = 18
+Title.TextSize = 20
 Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 Title.Parent = LogoFrame
+
+local EventText = Instance.new("TextLabel")
+EventText.Size = UDim2.new(1, -10, 0, 30)
+EventText.Position = UDim2.new(0, 5, 0, 65)
+EventText.BackgroundTransparency = 1
+EventText.Text = "VIOLENCE DISTRICT\nNEW NOKEY"
+EventText.Font = Enum.Font.GothamBold
+EventText.TextSize = 11
+EventText.TextColor3 = Color3.fromRGB(255, 140, 0)
+EventText.TextXAlignment = Enum.TextXAlignment.Left
+EventText.Parent = Sidebar
 
 local Credit = Instance.new("TextLabel")
 Credit.Size = UDim2.new(1, -10, 0, 30)
@@ -179,8 +182,8 @@ Credit.TextXAlignment = Enum.TextXAlignment.Left
 Credit.Parent = Sidebar
 
 local ContentArea = Instance.new("Frame")
-ContentArea.Size = UDim2.new(1, -145, 1, -20)
-ContentArea.Position = UDim2.new(0, 135, 0, 10)
+ContentArea.Size = UDim2.new(1, -165, 1, -20)
+ContentArea.Position = UDim2.new(0, 155, 0, 10)
 ContentArea.BackgroundTransparency = 1
 ContentArea.Parent = MainFrame
 
@@ -197,7 +200,7 @@ Pages.Home.Parent = ContentArea
 
 local function buatLink(text, url, y)
     local btn = Instance.new("TextButton")
-    btn.Size = UDim2.new(1, 0, 0, 35)
+    btn.Size = UDim2.new(1, 0, 0, 38)
     btn.Position = UDim2.new(0, 0, 0, y)
     btn.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
     btn.Text = "  " .. text
@@ -208,7 +211,7 @@ local function buatLink(text, url, y)
     btn.Parent = Pages.Home
     Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 6)
     Instance.new("UIStroke", btn).Color = Color3.fromRGB(60, 60, 80)
-    
+
     btn.MouseButton1Click:Connect(function()
         if setclipboard then pcall(function() setclipboard(url) end) end
         if RequestOpenBrowser then pcall(function() RequestOpenBrowser(url) end)
@@ -217,9 +220,9 @@ local function buatLink(text, url, y)
 end
 
 buatLink("TikTok: @whoohnbro_", LinkTikTok, 10)
-buatLink("YouTube: @hannxhub", LinkYouTube, 55)
-buatLink("WhatsApp Channel", LinkWA, 100)
-buatLink("Saweria (Donate)", LinkSaweria, 145)
+buatLink("YouTube: @hannxhub", LinkYouTube, 58)
+buatLink("WhatsApp Channel", LinkWA, 106)
+buatLink("Saweria (Donate)", LinkSaweria, 154)
 
 Pages.Fitur = Instance.new("Frame")
 Pages.Fitur.Size = UDim2.new(1, 0, 1, 0)
@@ -229,18 +232,22 @@ Pages.Fitur.Parent = ContentArea
 
 local function buatTombol(teks, x, y, keyName)
     local btn = Instance.new("TextButton")
-    btn.Size = UDim2.new(0, 175, 0, 32)
+    btn.Size = UDim2.new(0, 190, 0, 34)
     btn.Position = UDim2.new(0, x, 0, y)
     btn.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
     btn.Text = "  " .. teks .. ": OFF"
     btn.TextColor3 = Color3.fromRGB(255, 255, 255)
-    btn.Font = Enum.Font.Gotham
+    btn.Font = Enum.Font.GothamBold
     btn.TextSize = 12
     btn.TextXAlignment = Enum.TextXAlignment.Left
     btn.Parent = Pages.Fitur
     Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 6)
-    Instance.new("UIStroke", btn).Color = Color3.fromRGB(50, 50, 65)
     
+    -- Garis Tepi Biar Mewah
+    local stroke = Instance.new("UIStroke", btn)
+    stroke.Color = Color3.fromRGB(60, 60, 80)
+    stroke.Thickness = 1
+
     if Colors[keyName] then
         local colorBtn = Instance.new("TextButton")
         colorBtn.Size = UDim2.new(0, 20, 0, 20)
@@ -248,9 +255,9 @@ local function buatTombol(teks, x, y, keyName)
         colorBtn.BackgroundColor3 = Colors[keyName]
         colorBtn.Text = ""
         colorBtn.Parent = btn
-        Instance.new("UICorner", colorBtn).CornerRadius = UDim.new(0, 4)
-        Instance.new("UIStroke", colorBtn).Color = Color3.fromRGB(100, 100, 100)
-        
+        Instance.new("UICorner", colorBtn).CornerRadius = UDim.new(0, 5)
+        Instance.new("UIStroke", colorBtn).Color = Color3.fromRGB(150, 150, 150)
+
         colorBtn.MouseButton1Click:Connect(function()
             local currentColor = Colors[keyName]
             local nextIndex = 1
@@ -266,12 +273,12 @@ local function buatTombol(teks, x, y, keyName)
             if Status[keyName] then applyESP() end
         end)
     end
-    
+
     btn.MouseButton1Click:Connect(function()
         Status[keyName] = not Status[keyName]
         if Status[keyName] then
             btn.Text = "  " .. teks .. ": ON"
-            btn.BackgroundColor3 = Color3.fromRGB(80, 60, 120)
+            btn.BackgroundColor3 = Color3.fromRGB(90, 60, 150)
         else
             btn.Text = "  " .. teks .. ": OFF"
             btn.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
@@ -281,37 +288,40 @@ local function buatTombol(teks, x, y, keyName)
     return btn
 end
 
+-- FITUR ESP
 local b1 = buatTombol("Survivor ESP", 0, 0, "Survivor")
-local b2 = buatTombol("Killer ESP", 0, 38, "Killer")
-local b4 = buatTombol("Pallets ESP", 0, 76, "Pallets")
-local b5 = buatTombol("Windows ESP", 0, 114, "Windows")
-local b6 = buatTombol("Generators", 0, 152, "Gens")
-local b16 = buatTombol("Traps", 0, 190, "Traps")
+local b2 = buatTombol("Killer ESP", 0, 40, "Killer")
+local b4 = buatTombol("Pallets ESP", 0, 80, "Pallets")
+local b5 = buatTombol("Windows ESP", 0, 120, "Windows")
+local b6 = buatTombol("Generators ESP", 0, 160, "Gens")
+local b16 = buatTombol("Traps ESP", 0, 200, "Traps")
+local b18 = buatTombol("Pumpkins ESP", 0, 240, "Pumpkins")
 
-local b7 = buatTombol("Noclip", 190, 0, "Noclip")
-local b10 = buatTombol("WalkSpeed", 190, 38, "Speed")
+-- FITUR HACK
+local b7 = buatTombol("Noclip", 210, 0, "Noclip")
+local b10 = buatTombol("WalkSpeed", 210, 40, "Speed")
 
 local speedLabel = Instance.new("TextLabel")
-speedLabel.Size = UDim2.new(0, 175, 0, 20)
-speedLabel.Position = UDim2.new(0, 190, 0, 76)
+speedLabel.Size = UDim2.new(0, 190, 0, 20)
+speedLabel.Position = UDim2.new(0, 210, 0, 80)
 speedLabel.BackgroundTransparency = 1
 speedLabel.Text = "Speed: 50"
-speedLabel.Font = Enum.Font.Gotham
+speedLabel.Font = Enum.Font.GothamBold
 speedLabel.TextSize = 12
-speedLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
+speedLabel.TextColor3 = Color3.fromRGB(200, 200, 210)
 speedLabel.TextXAlignment = Enum.TextXAlignment.Left
 speedLabel.Parent = Pages.Fitur
 
 local barSpeed = Instance.new("Frame")
-barSpeed.Size = UDim2.new(0, 175, 0, 6)
-barSpeed.Position = UDim2.new(0, 190, 0, 100)
+barSpeed.Size = UDim2.new(0, 190, 0, 6)
+barSpeed.Position = UDim2.new(0, 210, 0, 105)
 barSpeed.BackgroundColor3 = Color3.fromRGB(40, 40, 50)
 barSpeed.Parent = Pages.Fitur
 Instance.new("UICorner", barSpeed).CornerRadius = UDim.new(1, 0)
 
 local fillSpeed = Instance.new("Frame")
 fillSpeed.Size = UDim2.new(0.25, 0, 1, 0)
-fillSpeed.BackgroundColor3 = Color3.fromRGB(150, 50, 200)
+fillSpeed.BackgroundColor3 = Color3.fromRGB(255, 140, 0)
 fillSpeed.Parent = barSpeed
 Instance.new("UICorner", fillSpeed).CornerRadius = UDim.new(1, 0)
 
@@ -322,23 +332,24 @@ knobSpeed.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 knobSpeed.Text = ""
 knobSpeed.Parent = barSpeed
 Instance.new("UICorner", knobSpeed).CornerRadius = UDim.new(1, 0)
+Instance.new("UIStroke", knobSpeed).Color = Color3.fromRGB(200, 200, 200)
 
-local b17 = buatTombol("FOV (Wide)", 190, 130, "FOV")
+local b17 = buatTombol("FOV (Wide)", 210, 140, "FOV")
 
 local fovLabel = Instance.new("TextLabel")
-fovLabel.Size = UDim2.new(0, 175, 0, 20)
-fovLabel.Position = UDim2.new(0, 190, 0, 168)
+fovLabel.Size = UDim2.new(0, 190, 0, 20)
+fovLabel.Position = UDim2.new(0, 210, 0, 180)
 fovLabel.BackgroundTransparency = 1
 fovLabel.Text = "FOV: 70"
-fovLabel.Font = Enum.Font.Gotham
+fovLabel.Font = Enum.Font.GothamBold
 fovLabel.TextSize = 12
-fovLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
+fovLabel.TextColor3 = Color3.fromRGB(200, 200, 210)
 fovLabel.TextXAlignment = Enum.TextXAlignment.Left
 fovLabel.Parent = Pages.Fitur
 
 local barFOV = Instance.new("Frame")
-barFOV.Size = UDim2.new(0, 175, 0, 6)
-barFOV.Position = UDim2.new(0, 190, 0, 192)
+barFOV.Size = UDim2.new(0, 190, 0, 6)
+barFOV.Position = UDim2.new(0, 210, 0, 205)
 barFOV.BackgroundColor3 = Color3.fromRGB(40, 40, 50)
 barFOV.Parent = Pages.Fitur
 Instance.new("UICorner", barFOV).CornerRadius = UDim.new(1, 0)
@@ -356,6 +367,7 @@ knobFOV.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 knobFOV.Text = ""
 knobFOV.Parent = barFOV
 Instance.new("UICorner", knobFOV).CornerRadius = UDim.new(1, 0)
+Instance.new("UIStroke", knobFOV).Color = Color3.fromRGB(200, 200, 200)
 
 local dragSpeed = false
 local function getSpeed() return math.floor(16 + ((150 - 16) * fillSpeed.Size.X.Scale)) end
@@ -434,22 +446,22 @@ local function buatTombolSidebar(teks, y)
     return btn
 end
 
-local btnHome = buatTombolSidebar("🏠 Home", 60)
-local btnFitur = buatTombolSidebar("⚔️ Features", 105)
-local btnSoon = buatTombolSidebar("⏳ Soon Update", 150)
+local btnHome = buatTombolSidebar("🏠 Home", 105) -- Digeser karena teks event
+local btnFitur = buatTombolSidebar("⚔️ Features", 150)
+local btnSoon = buatTombolSidebar("⏳ Soon Update", 195)
 
 local function pindahTab(tabAktif, btnAktif)
     for _, p in pairs(Pages) do p.Visible = false end
     Pages[tabAktif].Visible = true
-    
+
     btnHome.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
     btnHome.TextColor3 = Color3.fromRGB(150, 150, 150)
     btnFitur.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
     btnFitur.TextColor3 = Color3.fromRGB(150, 150, 150)
     btnSoon.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
     btnSoon.TextColor3 = Color3.fromRGB(150, 150, 150)
-    
-    btnAktif.BackgroundColor3 = Color3.fromRGB(150, 50, 200)
+
+    btnAktif.BackgroundColor3 = Color3.fromRGB(255, 140, 0)
     btnAktif.TextColor3 = Color3.fromRGB(255, 255, 255)
 end
 
@@ -492,7 +504,7 @@ function applyESP()
             local isKiller = false
             local team = plr.Team and plr.Team.Name:lower() or ""
             if team:find("killer") then isKiller = true end
-            
+
             if (isKiller and Status.Killer) or (not isKiller and Status.Survivor) then
                 local hl = Instance.new("Highlight")
                 hl.Adornee = plr.Character
@@ -533,6 +545,17 @@ function applyESP()
             table.insert(ESP_Objects, hl)
         end
     end
+
+    -- ESP LABU
+    if Status.Pumpkins then
+        local pumpkins = findObj("pumpkin")
+        for _, obj in ipairs(findObj("labu")) do table.insert(pumpkins, obj) end
+        
+        for _, obj in ipairs(pumpkins) do
+            local hl = Instance.new("Highlight"); hl.Adornee = obj; hl.FillColor = Colors.Pumpkins; hl.Parent = obj
+            table.insert(ESP_Objects, hl)
+        end
+    end
 end
 
 -- ==========================================
@@ -557,4 +580,4 @@ LocalPlayer.CharacterAdded:Connect(function()
     applyESP()
 end)
 
-print("HANX HUB V1 berhasil dimuat.")
+print("HANX HUB V40 berhasil dimuat.")
